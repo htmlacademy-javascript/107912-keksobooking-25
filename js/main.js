@@ -3,7 +3,7 @@ function getRandomInt(a,b){
   if(diff>=0){
     return a + Math.round(Math.random() * diff);
   }else{
-    return Error("getRandomInt: Ошибка входных данных");
+    return Error('getRandomInt: Ошибка входных данных');
   }
 }
 
@@ -13,9 +13,9 @@ function getRandomFloat(a,b,accuracy){
     const randNum = a + Math.random() * diff;
     return parseFloat(randNum.toFixed(accuracy));
   }else{
-    return Error("getRandomFloat: Ошибка входных данных");
+    return Error('getRandomFloat: Ошибка входных данных');
   }
 }
 
-//getRandomInt(0,100);
-//getRandomFloat(0.5,15.58,2);
+getRandomInt(0,100);
+getRandomFloat(0.5,15.58,4);
