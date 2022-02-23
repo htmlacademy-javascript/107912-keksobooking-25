@@ -1,19 +1,19 @@
-function getRandomInt(a,b){
-  const diff = b-a;
+function getRandomInt(min, max){
+  const diff = max-min;
   if(diff>=0){
-    return a + Math.round(Math.random() * diff);
+    return min + Math.round(Math.random() * diff);
   }else{
-    return Error('getRandomInt: Ошибка входных данных');
+    throw new Error('getRandomInt: Ошибка входных данных');
   }
 }
 
-function getRandomFloat(a,b,accuracy){
-  const diff = b-a;
+function getRandomFloat(min, max, accuracy){
+  const diff = max-min;
   if(diff>0){
-    const randNum = a + Math.random() * diff;
+    const randNum = min + Math.random() * diff;
     return parseFloat(randNum.toFixed(accuracy));
   }else{
-    return Error('getRandomFloat: Ошибка входных данных');
+    throw new Error('getRandomFloat: Ошибка входных данных');
   }
 }
 
