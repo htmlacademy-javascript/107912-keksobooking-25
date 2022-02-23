@@ -10,8 +10,13 @@ function getRandomInt(min, max){
 function getRandomFloat(min, max, accuracy){
   const diff = max-min;
   if(diff>0){
-    const randNum = min + Math.random() * diff;
-    return parseFloat(randNum.toFixed(accuracy));
+    const randRoundNum = parseFloat((min+Math.random()*diff).toFixed(accuracy));
+    if(randRoundNum>max) //при accuracy меньше кол знаков после "." иногда randRoundNum>max (погрешность огругления toFixed());
+    {
+      return max;
+    }else{
+      return randRoundNum;
+    }
   }else{
     throw new Error('getRandomFloat: Ошибка входных данных');
   }
