@@ -68,12 +68,5 @@ function CreateAdvert(){
   this.offer = createOfferObj(this.location.lat,this.location.lng);
 }
 
-/*
-const OBJ = new CreateAdvert();
-console.log(OBJ);
-*/
-
-//console.log(Array.from({length:1},()=>new CreateAdvert())); 
-
-Array.from({length:10},()=>new CreateAdvert()); // массив из 10 сгенерированных JS-объектов ()
+Array.from({length:10},()=>new CreateAdvert()); // массив из 10 сгенерированных JS-объектов (объявления)
 
