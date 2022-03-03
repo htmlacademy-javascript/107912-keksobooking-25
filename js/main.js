@@ -32,11 +32,11 @@ const PHOTOS_PATH = ['https://assets.htmlacademy.ru/content/intensive/javascript
 
 
 const createAuthor = ()=>{
-  const nom = getRandomInt(1,10);
-  if(nom===10){
-    return {avatar: `img/avatars/user${nom}.png`};
+  const number = getRandomInt(1,10);
+  if(number===10){
+    return {avatar: `img/avatars/user${number}.png`};
   }
-  return {avatar: `img/avatars/user0${nom}.png`};
+  return {avatar: `img/avatars/user0${number}.png`};
 };
 
 const createLocation = ()=>({
