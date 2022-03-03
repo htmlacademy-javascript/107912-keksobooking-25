@@ -31,7 +31,7 @@ const PHOTOS_PATH = ['https://assets.htmlacademy.ru/content/intensive/javascript
   ,'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 
 
-const createAuthorObj = ()=>{
+const createAuthor = ()=>{
   const nom = getRandomInt(1,10);
   if(nom===10){
     return {avatar: `img/avatars/user${nom}.png`};
@@ -39,9 +39,12 @@ const createAuthorObj = ()=>{
   return {avatar: `img/avatars/user0${nom}.png`};
 };
 
-const createLocationObj = ()=>({lat:getRandomFloat(35.65000,35.70000,5), lng: getRandomFloat(139.70000,139.80000,5)});
+const createLocation = ()=>({
+  lat:getRandomFloat(35.65000,35.70000,5),
+  lng: getRandomFloat(139.70000,139.80000,5)
+});
 
-const createOfferObj = (lat,lnd)=>{
+const createOffer = (lat,lnd)=>{
   const offer = {};
   offer.title= 'Лучшее предложение';
   offer.address= `${lat},${lnd}`;
@@ -62,11 +65,17 @@ const createOfferObj = (lat,lnd)=>{
   return offer;
 };
 
-function CreateAdvert(){
-  this.author = createAuthorObj();
-  this.location = createLocationObj();
-  this.offer = createOfferObj(this.location.lat,this.location.lng);
-}
+const createAdvert =()=>{
+  const location = createLocation();
+  return {
+    author: createAuthor(),
+    location: location,
+    offer: createOffer(location.lat,location.lng)
+  };
+};
 
-Array.from({length:10},()=>new CreateAdvert()); // массив из 10 сгенерированных JS-объектов (объявления)
 
+///const ADS =
+Array.from({length:10}, createAdvert); // массив из 10 сгенерированных JS-объектов (объявлений)
+
+//console.log(ADS);
