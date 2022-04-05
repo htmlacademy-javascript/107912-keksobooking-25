@@ -31,7 +31,7 @@ const createOffer = (lat,lnd)=>{
   offer.features= FEATURES.slice(featuresStart,featuresEnd+1);
 
   offer.description= 'Лучшие виды в городе';
-  offer.photos= Array.from({length:getRandomInt(1,100)},()=>PHOTOS_PATH[getRandomInt(0,PHOTOS_PATH.length-1)]);
+  offer.photos= Array.from({length:getRandomInt(1,10)},()=>PHOTOS_PATH[getRandomInt(0,PHOTOS_PATH.length-1)]);
 
   return offer;
 };
