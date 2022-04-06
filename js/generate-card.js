@@ -95,7 +95,7 @@ if(newCard.offer.features.length){
   const featureSet = popupFeatures.querySelectorAll('.popup__feature');
 
   featureSet.forEach((featureListItem)=>{
-    const notRemoveItem = features.some((offerFeature) => featureListItem.classList[1] === (`popup__feature--${offerFeature}!`));
+    const notRemoveItem = features.some((offerFeature) => featureListItem.classList[1] === (`popup__feature--${offerFeature}`));
     if(!notRemoveItem){
       featureListItem.remove();
     }
@@ -131,8 +131,8 @@ if(newCard.offer.photos.length)
 }
 
 const avatar = templateCard.querySelector('.popup__avatar');
-if(newCard.author){
-  avatar.src = newCard.author;
+if(newCard.author.avatar){
+  avatar.src = newCard.author.avatar;
 }else{
   avatar.remove();
 }
