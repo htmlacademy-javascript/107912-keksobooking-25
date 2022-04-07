@@ -1,8 +1,4 @@
-import {createAdvert} from './create-advert.js';
-
-//Array.from({length:10}, createAdvert); // массив из 10 сгенерированных JS-объектов (объявлений)
-
-const generateCard = (advert=createAdvert())=>{
+const generateCard = (advert)=>{
 
   const templateCard = document.querySelector('#card').content.cloneNode(true);
 
@@ -34,7 +30,7 @@ const generateCard = (advert=createAdvert())=>{
     case 'house': buildingType.textContent = 'Дом'; break;
     case 'palace': buildingType.textContent = 'Дворец'; break;
     case 'hotel': buildingType.textContent = 'Отель'; break;
-    case '': buildingType.remove();
+    default : buildingType.remove();
   }
 
   const capacity = templateCard.querySelector('.popup__text--capacity');
