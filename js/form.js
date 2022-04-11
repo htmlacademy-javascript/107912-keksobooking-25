@@ -8,20 +8,13 @@ const selectedRoom = form.querySelector('#room_number');
 const selectedGuest = form.querySelector('#capacity');
 
 
-console.log(typeof(selectedRoom.value));
-
-
-const pristine = new Pristine(form,
-  {
-    classTo: 'ad-form__element',  // Элемент, на который будут добавляться классы
-//    errorClass: 'has-danger', // Класс, обозначающий невалидное поле
-//    successClass: 'has-success', // Класс, обозначающий валидное поле
-    errorTextParent: 'ad-form__element', // Элемент, куда будет выводиться текст с ошибкой
-    errorTextTag: 'p', // Тег, который будет обрамлять текст ошибки
-    errorTextClass: 'prestine__error-text' // Класс для элемента с текстом ошибки
-  },
-  true);
-
+const pristine = new Pristine(form,{
+  classTo: 'ad-form__element',  // Элемент, на который будут добавляться классы
+  errorTextParent: 'ad-form__element', // Элемент, куда будет выводиться текст с ошибкой
+  errorTextTag: 'p', // Тег, который будет обрамлять текст ошибки
+  errorTextClass: 'prestine__error-text' // Класс для элемента с текстом ошибки
+},
+true);
 
 const minPriselist =
 {
@@ -103,70 +96,13 @@ priseField.addEventListener('input', (evt)=>{
 timeinField.addEventListener('change', ()=>{timeoutField.value = timeinField.value;});
 timeoutField.addEventListener('change', ()=>{timeinField.value = timeoutField.value;});
 
-
-/*
-pristine.leng = {ru:{
-  required: 'Это обязательное поле',
-  email: 'Требуется корректный e-mail адрес',
-  number: 'Требуется действительное число',
-  integer: 'Требуется целое число',
-  url: 'Требуется корректный URL',
-  tel: 'Требуется корректный номер телефона',
-  maxlength: 'Длинна поля дожна быть < ${1}',
-  minlength: 'Длинна поля дожна быть > ${1}',
-  min: 'Минимальное значение поля ${1}',
-  max: 'Максимальное значение поля ${1}',
-  pattern: 'Пожалуйста, привидите в соответствии с форматом',
-  equals: 'Эти два поля не совпадают'
-}};
-
-pristine.setLocale('ru');
-
-pristine.addMessages('ru',
-  {
-    required: 'Это обязательное поле',
-    email: 'Требуется корректный e-mail адрес',
-    number: 'Требуется действительное число',
-    integer: 'Требуется целое число',
-    url: 'Требуется корректный URL',
-    tel: 'Требуется корректный номер телефона',
-    maxlength: 'Длинна поля дожна быть < ${1}',
-    minlength: 'Длинна поля дожна быть > ${1}',
-    min: 'Минимальное значение поля ${1}',
-    max: 'Максимальное значение поля ${1}',
-    pattern: 'Пожалуйста, привидите в соответствии с форматом',
-    equals: 'Эти два поля не совпадают'
-  }
-);*/
-
-/*
-const tileInput = form.querySelector('#title');
-
-function validateLabel (value) {
-  return value.length >= tileInput.minlength && value.length <= tileInput.maxlength;
-}
-
-pristine.addValidator(tileInput, validateLabel);
-*/
-/*
-const pristine = new Pristine(form, {
-  classTo: 'form__item', // Элемент, на который будут добавляться классы
-  errorClass: 'form__item--invalid', // Класс, обозначающий невалидное поле
-  successClass: 'form__item--valid', // Класс, обозначающий валидное поле
-  errorTextParent: 'form__item', // Элемент, куда будет выводиться текст с ошибкой
-  errorTextTag: 'span', // Тег, который будет обрамлять текст ошибки
-  errorTextClass: 'form__error' // Класс для элемента с текстом ошибки
-});
-*/
-
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
 
   if (isValid) {
-    console.log('Можно отправлять');
+    //console.log('Можно отправлять');
   } else {
-    console.log('Форма невалидна ');
+    //console.log('Форма невалидна ');
   }
-//  pristine.reset();
 });
