@@ -1,0 +1,16 @@
+/*
+Стили для Pristin.js
+*/
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../fonts/Roboto-Regular.woff2") format("woff2");
+}
+
+.prestine__error-text{
+    font-family: "Roboto";
+    font-size: 14px;
+    color: red;
+    margin-top: 2px;
+    margin-bottom: 6px;
+}
