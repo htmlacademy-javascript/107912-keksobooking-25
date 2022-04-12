@@ -60,7 +60,7 @@ const validateRoomsGuests = ()=>{
 };
 
 pristine.addValidator(selectedRoom, validateRoomsGuests, 'кол-во комнат не сответствует кол-ву гостей');
-pristine.addValidator(selectedGuest, validateRoomsGuests, 'кол-во комнат не сответствует кол-ву гостей');
+selectedGuest.addEventListener('change',()=>pristine.validate(selectedRoom));
 
 noUiSlider.create(priseSlider, {
   start: 1000,
@@ -77,6 +77,7 @@ noUiSlider.create(priseSlider, {
 
 priseSlider.noUiSlider.on('slide', ()=>{
   priseField.value = Math.ceil(priseSlider.noUiSlider.get());
+  pristine.validate(priseField);
 });
 
 priseField.addEventListener('input', (evt)=>{
