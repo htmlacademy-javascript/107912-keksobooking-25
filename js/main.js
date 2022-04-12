@@ -1,5 +1,5 @@
-import {generateCard} from './generate-card.js';
-import {createAdvert} from './create-advert.js';
+// import {generateCard} from './generate-card.js';
+// import {createAdvert} from './create-advert.js';
 
 //Array.from({length:10}, createAdvert); // массив из 10 сгенерированных JS-объектов (объявлений)
 
@@ -11,7 +11,7 @@ const map = L.map('map-canvas')
   .setView({
     lat: 59.92749,
     lng: 30.31127,
-  }, 10);
+  }, 11);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -20,6 +20,12 @@ L.tileLayer(
   },
 ).addTo(map);
 
+const mainPinIcon = L.icon({
+  iconUrl: 'img/main-pin.svg',
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
+
 const marker = L.marker(
   {
     lat: 59.96831,
@@ -27,9 +33,14 @@ const marker = L.marker(
   },
   {
     draggable: true,
-  },
+    icon: mainPinIcon,
+  }
 );
+
 
 marker.addTo(map);
 
+marker.on('moveend', (evt) => {
+  document.getElementById('address').value = evt.target.getLatLng();
+});
 //mapCanvas.append(map);
