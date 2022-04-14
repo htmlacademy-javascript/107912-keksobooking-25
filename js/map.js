@@ -1,9 +1,12 @@
 import {generateCard} from './generate-card.js';
 import {createAdvert} from './create-advert.js';
 import {roundLatLng} from './util.js';
+
 const MAIN_PIN_SIZE  = 52;
 const PIN_SIZE = 40;
-const TOKIO_CENTRE = {lat:35.68260, lng:139.75220};// 35.68259, 139.75223
+const COORDINATE_ACCURACY = 5;
+const ZOOM = 13;
+const TOKIO_CENTRE = {lat:35.68260, lng:139.75220};
 
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
@@ -18,7 +21,7 @@ const pinIcon = L.icon({
 });
 
 const loadMap = (map)=>{
-  map.setView(TOKIO_CENTRE,13);
+  map.setView(TOKIO_CENTRE, ZOOM);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -55,7 +58,7 @@ const loadMap = (map)=>{
   mainMarker.addTo(map);
 
   mainMarker.on('moveend', (evt) => {
-    const currentPoint = roundLatLng(evt.target.getLatLng(),5);
+    const currentPoint = roundLatLng(evt.target.getLatLng(), COORDINATE_ACCURACY);
     document.getElementById('address').value = `${currentPoint.lat}, ${currentPoint.lng}`;
   });
 
