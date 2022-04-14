@@ -22,4 +22,10 @@ const getRandomFloat = (min, max, accuracy)=>{
   }
 };
 
-export{getRandomInt, getRandomFloat};
+const roundLatLng = (location,accuracy)=>{
+  location.lat = Number(location.lat.toFixed(accuracy));
+  location.lng = Number(location.lng.toFixed(accuracy));
+  return location;
+};
+
+export{getRandomInt, getRandomFloat, roundLatLng};
