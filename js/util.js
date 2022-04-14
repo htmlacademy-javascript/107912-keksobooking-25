@@ -11,7 +11,7 @@ const getRandomFloat = (min, max, accuracy)=>{
   const diff = max-min;
   if(diff>0){
     const randRoundNum = parseFloat((min+Math.random()*diff).toFixed(accuracy));
-    if(randRoundNum>max) //при accuracy меньше кол знаков после "." иногда randRoundNum>max (погрешность огругления toFixed());
+    if(randRoundNum>max)
     {
       return max;
     }else{
@@ -22,4 +22,9 @@ const getRandomFloat = (min, max, accuracy)=>{
   }
 };
 
-export{getRandomInt, getRandomFloat};
+const roundLatLng = (location,accuracy)=>({
+  lat : Number(location.lat.toFixed(accuracy)),
+  lng : Number(location.lng.toFixed(accuracy))
+});
+
+export{getRandomInt, getRandomFloat, roundLatLng};
