@@ -1,7 +1,7 @@
-import {activatePage,deactivatePage} from './page-behavior.js';
-import {loadMap} from './map.js';
+//import {createAdvert} from './create-advert.js';
+import {deactivatePage} from './page-behavior.js';
 
 deactivatePage();
 
-const map = L.map('map-canvas').on('load',activatePage);
-loadMap(map);
+//let adverts = Array.from({length:10}, createAdvert);
+
