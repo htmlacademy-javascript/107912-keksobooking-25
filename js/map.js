@@ -5,7 +5,7 @@ import {activatePage} from './page-behavior.js';
 const addressField = document.querySelector('#address');
 
 ///////////////////////
-import {createAdvert} from './create-advert.js';
+//import {createAdvert} from './create-advert.js';
 //////////////////////
 
 const MAIN_PIN_SIZE  = 52;
