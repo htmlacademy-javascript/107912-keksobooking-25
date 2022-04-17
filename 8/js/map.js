@@ -1,12 +1,8 @@
-import {roundLatLng} from './util.js';
+import {roundLatLng, showAlert} from './util.js';
 import {getData} from './api.js';
 import {generateCard} from './generate-card.js';
-import {activatePage} from './page-behavior.js';
+import {activatePage, deactivatePage} from './page-behavior.js';
 const addressField = document.querySelector('#address');
-
-///////////////////////
-//import {createAdvert} from './create-advert.js';
-//////////////////////
 
 const MAIN_PIN_SIZE  = 52;
 const PIN_SIZE = 40;
@@ -78,18 +74,22 @@ const renderMarkersOnMap = (adverts)=>{
 
 const onSuccessRequest = (adverts)=>{
   activatePage();
-  console.log(adverts);
-  //adverts = Array.from({length:10}, createAdvert);
   renderMarkersOnMap(adverts);
+};
+
+const onFailRequest = (err)=>{
+  activatePage();
+  showAlert(`Ошибка загрузки объявлений "${err}"`);
 };
 
 map.on('load',()=>{
   getData(
     onSuccessRequest,
-    (err)=>console.error(err)
+    onFailRequest
   );}
 );
 
+deactivatePage();
 resetMapMainMarker(); //вызов map.on('load'...)
 
 export {renderMarkersOnMap, resetMapMainMarker};

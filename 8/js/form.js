@@ -97,7 +97,7 @@ timeoutField.addEventListener('change', ()=>{timeinField.value = timeoutField.va
 const resetForm = ()=>{
   form.reset();
   resetMapMainMarker();
-
+///////////////////////////////
 };
 
 const lockSubmitButton = ()=>{
@@ -112,10 +112,10 @@ const unlockSubmitButton = ()=>{
 
 const onErrorButtonClick = ()=>{};
 
-form.addEventListener('submit', (evt) => {
+form.addEventListener('submit', (evt)=>{
   evt.preventDefault();
   const isValid = pristine.validate();
-  if (isValid) {
+  if (isValid){
     lockSubmitButton(evt.target);
 
     sendData(()=>{

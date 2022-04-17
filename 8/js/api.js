@@ -1,4 +1,4 @@
-const GET_DATA_URL = 'https://25.javascript.pages.academy/keksobooking/data';
+const GET_DATA_URL = 'https://25.javascript.pages.academy/keksobooking/data5'; ////// data5
 
 const getData = (onSuccess, onFail)=>
   fetch(
