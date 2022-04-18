@@ -1,4 +1,4 @@
-const GET_DATA_URL = 'https://25.javascript.pages.academy/keksobooking/data5'; ////// data5
+const GET_DATA_URL = 'https://25.javascript.pages.academy/keksobooking/data';
 
 const getData = (onSuccess, onFail)=>
   fetch(
@@ -16,10 +16,10 @@ const getData = (onSuccess, onFail)=>
   });
 
 const sendData = (onSuccess, onError, sendForm)=>{
-  const SEND_DATA_URL = sendForm.action;
+  const sendDataURL = sendForm.action;
   const formData = new FormData(sendForm);
   return fetch(
-    SEND_DATA_URL,
+    sendDataURL,
     {
       method:'POST',
       credentials: 'same-origin',
