@@ -4,6 +4,7 @@ import {generateCard} from './generate-card.js';
 import {activatePage, deactivatePage} from './page-behavior.js';
 import {showAlert} from './messages.js';
 import {getFilteringAdverts} from './filter.js';
+import {setAdvertsCache} from './data-cache.js';
 
 const addressField = document.querySelector('#address');
 
@@ -78,7 +79,8 @@ const renderMarkersOnMap = (adverts)=>{
 
 const onSuccessRequest = (adverts)=>{
   activatePage();
-  renderMarkersOnMap(getFilteringAdverts(adverts));
+  setAdvertsCache(adverts);
+  renderMarkersOnMap(getFilteringAdverts());
 };
 
 const onFailRequest = (err)=>{

@@ -6,4 +6,7 @@ const PHOTOS_PATH = ['https://assets.htmlacademy.ru/content/intensive/javascript
   ,'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg'
   ,'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 
+
+let
+
 export{BUILDINGS_TYPES, CHECKIN_TIMES, CHECKOUT_TIMES, FEATURES, PHOTOS_PATH};
