@@ -99,7 +99,6 @@ const resetForm = ()=>{
   form.reset();
   resetFiltersForm();
   resetMapMainMarker();
-///////////////////////////////
 };
 
 const lockSubmitButton = ()=>{
@@ -129,7 +128,7 @@ form.addEventListener('submit', (evt)=>{
     },
     form)
       .finally(()=>unlockSubmitButton(evt.target));
-  }// else{  }
+  }
 
 });
 

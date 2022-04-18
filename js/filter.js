@@ -2,6 +2,9 @@ import {renderMarkersOnMap} from './map.js';
 import {getAdvertsCache} from './data-cache.js';
 
 const COUNT_OF_MARKERS = 10;
+const ANY_VALUE = 'any';
+const LOW_PRICE_END = 10000;
+const HIGH_PRISE_START = 50000;
 
 const filtersForm = document.querySelector('.map__filters');
 const filterHousingType = filtersForm.querySelector('#housing-type');
@@ -10,44 +13,54 @@ const filterHousingRooms = filtersForm.querySelector('#housing-rooms');
 const filterHousingGuests = filtersForm.querySelector('#housing-guests');
 
 
-const returnFintersValues = ()=>{
-  const filtersValues = {};
+const filterByBuildingType = (advert)=>
+  filterHousingType.value === ANY_VALUE || filterHousingType.value === advert.offer.type;
 
-  if(filterHousingType.value !== 'any'){
-    filtersValues.type = filterHousingType.value;
+const filterByPrise = (advert) => {
+  switch (filterHousingPrice.value){
+    case 'middle' : return advert.offer.price >= LOW_PRICE_END && advert.offer.price <= HIGH_PRISE_START;
+    case 'low' : return advert.offer.price < LOW_PRICE_END;
+    case 'high' : return advert.offer.price >= HIGH_PRISE_START;
+    default: return true;
   }
-  if(filterHousingPrice.value !== 'any'){
-    filtersValues.price = filterHousingPrice.value;
-  }
-  if(filterHousingRooms.value !== 'any'){
-    filtersValues.rooms = filterHousingRooms.value;
-  }
-  if(filterHousingGuests.value !== 'any'){
-    filtersValues.guests = filterHousingGuests.value;
-  }
-
-  return filtersValues;
 };
 
+const filterByRooms = (advert) =>
+  filterHousingRooms.value === ANY_VALUE || Number(filterHousingRooms.value) === advert.offer.rooms;
+
+const filterByGuests = (advert) =>
+  filterHousingGuests.value === ANY_VALUE || Number(filterHousingGuests.value) === advert.offer.guests;
+
+const filterByFeatures = (advert) => {
+  const checkedFeatures = filtersForm.querySelectorAll('.map__checkbox:checked');
+  const checkedFeaturesArray = Array.from(checkedFeatures,(checkedElement)=>checkedElement.value);
+  if(checkedFeaturesArray.length){
+    if('features' in advert.offer){
+      return checkedFeaturesArray.every((feature)=>advert.offer.features.includes(feature));
+    }else{
+      return false;
+    }
+  }else {
+    return true;
+  }
+};
 
 const getFilteringAdverts = ()=>{
   const adverts = getAdvertsCache();
-  return adverts.filter((advert)=>{
-    if(filterHousingType.value === 'any') {
-      return true;
-    }else{
-      return advert.offer.type === filterHousingType.value;
-    }
-  }).slice(0,COUNT_OF_MARKERS);
+  return adverts.filter(filterByBuildingType)
+    .filter(filterByPrise)
+    .filter(filterByRooms)
+    .filter(filterByGuests)
+    .filter(filterByFeatures)
+    .slice(0,COUNT_OF_MARKERS);
 };
-
-filterHousingType.addEventListener('change',()=>renderMarkersOnMap(getFilteringAdverts()));
 
 const resetFiltersForm = () =>{
   filtersForm.reset();
-  renderMarkersOnMap(getFilteringAdverts());
-  //getFilteringAdverts
+  renderMarkersOnMap(getAdvertsCache().slice(0,COUNT_OF_MARKERS));
 };
-//console.log(returnFintersValues());
+
+
+filtersForm.addEventListener('change',()=>renderMarkersOnMap(getFilteringAdverts()));
 
 export {resetFiltersForm, getFilteringAdverts};
