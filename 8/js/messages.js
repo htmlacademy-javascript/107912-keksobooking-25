@@ -1,3 +1,27 @@
+const ALERT_SHOW_TIME = 6000;
+
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = 1000;
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = 0;
+  alertContainer.style.top = 0;
+  alertContainer.style.right = 0;
+  alertContainer.style.padding = '8px 2px';
+  alertContainer.style.color = 'white';
+  alertContainer.style.fontSize = '22px';
+  alertContainer.style.fontWeight = 400;
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = 'red';
+
+  alertContainer.textContent = message;
+  document.querySelector('.map').append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
+};
+
 const onMessageClick = () => closeMessage();
 
 const onEscapePress = (evt)=>{
@@ -28,4 +52,4 @@ function closeMessage(){
   document.removeEventListener('keydown', onEscapePress);
 }
 
-export{showSuccessMessage, showErrorMessage};
+export{showSuccessMessage, showErrorMessage, showAlert};

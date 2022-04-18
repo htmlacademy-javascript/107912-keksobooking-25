@@ -1,7 +1,11 @@
-import {roundLatLng, showAlert} from './util.js';
+import {roundLatLng} from './util.js';
 import {getData} from './api.js';
 import {generateCard} from './generate-card.js';
-import {activatePage, deactivatePage} from './page-behavior.js';
+import {activatePage, deactivatePage, activateFiletrtsForm} from './page-behavior.js';
+import {showAlert} from './messages.js';
+import {resetFiltersForm} from './filter.js';
+import {setAdvertsCache} from './data-cache.js';
+
 const addressField = document.querySelector('#address');
 
 const MAIN_PIN_SIZE  = 52;
@@ -57,6 +61,7 @@ const resetMapMainMarker = ()=>{
 };
 
 const renderMarkersOnMap = (adverts)=>{
+  markersLayer.clearLayers();
   adverts.forEach((advert)=>{
     const popupCard = document.createElement('div');
     popupCard.append(generateCard(advert));
@@ -74,7 +79,9 @@ const renderMarkersOnMap = (adverts)=>{
 
 const onSuccessRequest = (adverts)=>{
   activatePage();
-  renderMarkersOnMap(adverts);
+  activateFiletrtsForm();
+  setAdvertsCache(adverts);
+  resetFiltersForm();
 };
 
 const onFailRequest = (err)=>{
@@ -90,6 +97,6 @@ map.on('load',()=>{
 );
 
 deactivatePage();
-resetMapMainMarker(); //вызов map.on('load'...)
+resetMapMainMarker();
 
 export {renderMarkersOnMap, resetMapMainMarker};
