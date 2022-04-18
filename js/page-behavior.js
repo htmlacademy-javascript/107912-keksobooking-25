@@ -11,15 +11,17 @@ const deactivatePage = ()=>{
 };
 
 const activatePage = ()=>{
-  const mapFiltersContainer = document.querySelector('.map__filters-container');
-  mapFiltersContainer.classList.remove('ad-form--disabled');
-  const selectElements = mapFiltersContainer.querySelectorAll('select');
-  selectElements.forEach((element) => {element.disabled = false;});
-
   const addForm = document.querySelector('.ad-form');
   addForm.classList.remove('ad-form--disabled');
   const formFieldsets = addForm.querySelectorAll('fieldset');
   formFieldsets.forEach((element) => {element.disabled = false;});
 };
 
-export{activatePage,deactivatePage};
+const activateFiletrtsForm = ()=>{
+  const mapFiltersContainer = document.querySelector('.map__filters-container');
+  mapFiltersContainer.classList.remove('ad-form--disabled');
+  const selectElements = mapFiltersContainer.querySelectorAll('select');
+  selectElements.forEach((element) => {element.disabled = false;});
+};
+
+export{activatePage, deactivatePage, activateFiletrtsForm};

@@ -48,7 +48,7 @@ const generateCard = (advert)=>{
   }
 
   const popupFeatures = templateCard.querySelector('.popup__features');
-  if(advert.offer.features.length){
+  if( ('features' in advert.offer) && advert.offer.features.length){
     const features = advert.offer.features;
     const featureSet = popupFeatures.querySelectorAll('.popup__feature');
 
@@ -72,7 +72,7 @@ const generateCard = (advert)=>{
   }
 
   const photos = templateCard.querySelector('.popup__photos');
-  if(advert.offer.photos.length)
+  if( ('photos' in advert.offer) && advert.offer.photos.length)
   {
     const photo  = photos.querySelector('.popup__photo');
     photo.src = advert.offer.photos[0];

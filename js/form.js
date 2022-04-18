@@ -1,11 +1,20 @@
+import {showSuccessMessage, showErrorMessage} from './messages.js';
+import {sendData} from './api.js';
+import {resetMapMainMarker} from './map.js';
+import {resetFiltersForm} from './filter.js';
+import {resetPhotoPreview} from './photo.js';
+
 const form = document.querySelector('.ad-form');
 const selectedType = form.querySelector('#type');
 const priseField = form.querySelector('#price');
-const priseSlider = form.querySelector('#slider'); //<div> слайдера
+const priseSlider = form.querySelector('#slider');
 const timeinField = form.querySelector('#timein');
 const timeoutField = form.querySelector('#timeout');
 const selectedRoom = form.querySelector('#room_number');
 const selectedGuest = form.querySelector('#capacity');
+const submitButton = form.querySelector('.ad-form__submit');
+const resetButton = form.querySelector('.ad-form__reset');
+
 
 const MIN_PRISE_LIST =
 {
@@ -17,16 +26,16 @@ const MIN_PRISE_LIST =
 };
 
 const pristine = new Pristine(form,{
-  classTo: 'ad-form__element',  // Элемент, на который будут добавляться классы
-  errorTextParent: 'ad-form__element', // Элемент, куда будет выводиться текст с ошибкой
-  errorTextTag: 'p', // Тег, который будет обрамлять текст ошибки
-  errorTextClass: 'prestine__error-text' // Класс для элемента с текстом ошибки
+  classTo: 'ad-form__element',
+  errorTextParent: 'ad-form__element',
+  errorTextTag: 'p',
+  errorTextClass: 'prestine__error-text'
 },
 true);
 
 const validatePrise=(valuePrise) => {
   const [minPrise] = MIN_PRISE_LIST[selectedType.value];
-  return minPrise <= valuePrise; //&& valuePrise <= 100000
+  return minPrise <= valuePrise;
 };
 
 const getPriseErrorMessage=() => {
@@ -40,12 +49,12 @@ function typeBuildingChange(evt){
   const [minPrise] = MIN_PRISE_LIST[evt.target.value];
   priseField.placeholder = `от ${minPrise}`;
   priseField.min = minPrise;
-  //priseSlider.noUiSlider.updateOptions({range:{'min':minPrise,'max':100000}});
 
   if(Number(priseField.value) < minPrise){
     priseSlider.noUiSlider.set(minPrise);
     priseField.value = minPrise;
   }
+  pristine.validate(priseField);
 }
 selectedType.addEventListener('change',typeBuildingChange);
 
@@ -87,12 +96,47 @@ priseField.addEventListener('input', (evt)=>{
 timeinField.addEventListener('change', ()=>{timeoutField.value = timeinField.value;});
 timeoutField.addEventListener('change', ()=>{timeinField.value = timeoutField.value;});
 
-form.addEventListener('submit', (evt) => {
+const resetForm = ()=>{
+  form.reset();
+  resetFiltersForm();
+  resetMapMainMarker();
+  resetPhotoPreview();
+};
+
+const lockSubmitButton = ()=>{
+  submitButton.disabled = true;
+  submitButton.textContent = 'Отправка данных...';
+};
+
+const unlockSubmitButton = ()=>{
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
+const onErrorButtonClick = ()=>{};
+
+form.addEventListener('submit', (evt)=>{
+  evt.preventDefault();
   const isValid = pristine.validate();
-  if (isValid) {
-    //console.log('Можно отправлять');
-  } else {
-    evt.preventDefault();
-    //console.log('Форма невалидна ');
+  if (isValid){
+    lockSubmitButton(evt.target);
+
+    sendData(()=>{
+      showSuccessMessage();
+      resetForm();
+    },
+    ()=>{
+      showErrorMessage(onErrorButtonClick);
+    },
+    form)
+      .finally(()=>unlockSubmitButton(evt.target));
   }
+
 });
+
+
+resetButton.addEventListener('click',(evt)=>{
+  evt.preventDefault();
+  resetForm();
+});
+
