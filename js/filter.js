@@ -2,7 +2,7 @@ import {renderMarkersOnMap} from './map.js';
 import {getAdvertsCache} from './data-cache.js';
 import {debounce} from './util.js';
 
-const COUNT_OF_MARKERS = 10;
+const ADVERTS_ON_MAP = 10;
 const ANY_VALUE = 'any';
 const LOW_PRICE_END = 10000;
 const HIGH_PRISE_START = 50000;
@@ -47,22 +47,33 @@ const filterByFeatures = (advert) => {
   }
 };
 
+
 const getFilteringAdverts = ()=>{
   const adverts = getAdvertsCache();
-  return adverts.filter((advert)=>
-    filterByBuildingType(advert)
-    && filterByPrise(advert)
-    && filterByRooms(advert)
-    && filterByGuests(advert)
-    && filterByFeatures(advert)
-  )
-    .slice(0,COUNT_OF_MARKERS);
+  const filtredAdverts = [];
+  for(let i=0; i < adverts.length; i++)
+  {
+    const currentAdvert = adverts[i];
+
+    if(filterByBuildingType(currentAdvert)
+      && filterByPrise(currentAdvert)
+      && filterByRooms(currentAdvert)
+      && filterByGuests(currentAdvert)
+      && filterByFeatures(currentAdvert)){
+      filtredAdverts.push(currentAdvert);
+    }
+
+    if(filtredAdverts.length === ADVERTS_ON_MAP){
+      break;
+    }
+  }
+  return filtredAdverts;
 };
 
 
 const resetFiltersForm = () =>{
   filtersForm.reset();
-  renderMarkersOnMap(getAdvertsCache().slice(0,COUNT_OF_MARKERS));
+  renderMarkersOnMap(getAdvertsCache().slice(0,ADVERTS_ON_MAP));
 };
 
 const onFiltersChange = debounce(() =>renderMarkersOnMap(getFilteringAdverts()), DELAY);
