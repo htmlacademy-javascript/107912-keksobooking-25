@@ -1,10 +1,12 @@
 import {renderMarkersOnMap} from './map.js';
 import {getAdvertsCache} from './data-cache.js';
+import {debounce} from './util.js';
 
 const COUNT_OF_MARKERS = 10;
 const ANY_VALUE = 'any';
 const LOW_PRICE_END = 10000;
 const HIGH_PRISE_START = 50000;
+const DELAY = 500;
 
 const filtersForm = document.querySelector('.map__filters');
 const filterHousingType = filtersForm.querySelector('#housing-type');
@@ -47,20 +49,24 @@ const filterByFeatures = (advert) => {
 
 const getFilteringAdverts = ()=>{
   const adverts = getAdvertsCache();
-  return adverts.filter(filterByBuildingType)
-    .filter(filterByPrise)
-    .filter(filterByRooms)
-    .filter(filterByGuests)
-    .filter(filterByFeatures)
+  return adverts.filter((advert)=>
+    filterByBuildingType(advert)
+    && filterByPrise(advert)
+    && filterByRooms(advert)
+    && filterByGuests(advert)
+    && filterByFeatures(advert)
+  )
     .slice(0,COUNT_OF_MARKERS);
 };
+
 
 const resetFiltersForm = () =>{
   filtersForm.reset();
   renderMarkersOnMap(getAdvertsCache().slice(0,COUNT_OF_MARKERS));
 };
 
+const onFiltersChange = debounce(() =>renderMarkersOnMap(getFilteringAdverts()), DELAY);
 
-filtersForm.addEventListener('change',()=>renderMarkersOnMap(getFilteringAdverts()));
+filtersForm.addEventListener('change',onFiltersChange);
 
 export {resetFiltersForm, getFilteringAdverts};

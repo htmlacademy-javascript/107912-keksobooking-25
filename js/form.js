@@ -2,6 +2,7 @@ import {showSuccessMessage, showErrorMessage} from './messages.js';
 import {sendData} from './api.js';
 import {resetMapMainMarker} from './map.js';
 import {resetFiltersForm} from './filter.js';
+import {resetPhotoPreview} from './photo.js';
 
 const form = document.querySelector('.ad-form');
 const selectedType = form.querySelector('#type');
@@ -99,6 +100,7 @@ const resetForm = ()=>{
   form.reset();
   resetFiltersForm();
   resetMapMainMarker();
+  resetPhotoPreview();
 };
 
 const lockSubmitButton = ()=>{
