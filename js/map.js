@@ -1,18 +1,18 @@
 import {roundLatLng} from './util.js';
 import {getData} from './api.js';
 import {generateCard} from './generate-card.js';
-import {activatePage, deactivatePage, activateFiletrtsForm} from './page-behavior.js';
+import {activatePage, deactivatePage, activateFiltersForm} from './page-behavior.js';
 import {showAlert} from './messages.js';
 import {resetFiltersForm} from './filter.js';
 import {setAdvertsCache} from './data-cache.js';
-
-const addressField = document.querySelector('#address');
 
 const MAIN_PIN_SIZE  = 52;
 const PIN_SIZE = 40;
 const COORDINATE_ACCURACY = 5;
 const ZOOM = 13;
 const TOKIO_CENTRE = {lat:35.68260, lng:139.75220};
+
+const addressField = document.querySelector('#address');
 
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
@@ -34,7 +34,7 @@ const mainMarker = L.marker(
   }
 );
 
-const setMarkerPointToAdreessField = (marker)=>{
+const setMarkerPointToAddressField = (marker)=>{
   const currentPoint = roundLatLng(marker.getLatLng(), COORDINATE_ACCURACY);
   addressField.value = `${currentPoint.lat}, ${currentPoint.lng}`;
 };
@@ -48,7 +48,7 @@ L.tileLayer(
   },
 ).addTo(map);
 
-mainMarker.on('moveend', (evt)=>setMarkerPointToAdreessField(evt.target));
+mainMarker.on('moveend', (evt)=>setMarkerPointToAddressField(evt.target));
 mainMarker.addTo(map);
 
 const markersLayer = L.layerGroup().addTo(map);
@@ -56,7 +56,7 @@ const markersLayer = L.layerGroup().addTo(map);
 const resetMapMainMarker = ()=>{
   map.setView(TOKIO_CENTRE, ZOOM);
   mainMarker.setLatLng(TOKIO_CENTRE);
-  setMarkerPointToAdreessField(mainMarker);
+  setMarkerPointToAddressField(mainMarker);
   map.closePopup();
 };
 
@@ -79,7 +79,7 @@ const renderMarkersOnMap = (adverts)=>{
 
 const onSuccessRequest = (adverts)=>{
   activatePage();
-  activateFiletrtsForm();
+  activateFiltersForm();
   setAdvertsCache(adverts);
   resetFiltersForm();
 };
