@@ -1,10 +1,10 @@
 const FILE_TYPES = ['jpg', 'jpeg', 'png', 'webp', 'heic'];
 const AVATAR = 'img/muffin-grey.svg';
 
-const fileChosserAvatar = document.querySelector('#avatar');
+const fileChooserAvatar = document.querySelector('#avatar');
 const avatarPreview = document.querySelector('.ad-form-header__preview img');
 
-const fileChoserImages = document.querySelector('#images');
+const fileChooserImages = document.querySelector('#images');
 const imagesPreview = document.querySelector('.ad-form__photo');
 
 
@@ -39,10 +39,10 @@ const onImagesChange = (fileChooser) => {
   }
 };
 
-fileChosserAvatar.addEventListener('change', (evt) => onAvatarChange(evt.target));
+fileChooserAvatar.addEventListener('change', (evt) => onAvatarChange(evt.target));
 
 
-fileChoserImages.addEventListener('change', (evt) => onImagesChange(evt.target));
+fileChooserImages.addEventListener('change', (evt) => onImagesChange(evt.target));
 
 
 const resetPhotoPreview = () => {

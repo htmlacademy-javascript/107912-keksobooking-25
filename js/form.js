@@ -4,6 +4,15 @@ import {resetMapMainMarker} from './map.js';
 import {resetFiltersForm} from './filter.js';
 import {resetPhotoPreview} from './photo.js';
 
+const MIN_PRISE_LIST =
+{
+  bungalow : {minPrise: 0, ruTypeName: 'бунгало'},
+  flat : {minPrise: 1000, ruTypeName: 'квартиру'},
+  hotel : {minPrise: 3000, ruTypeName: 'отель'},
+  house : {minPrise: 5000, ruTypeName: 'дом'},
+  palace : {minPrise: 10000, ruTypeName: 'дворец'},
+};
+
 const form = document.querySelector('.ad-form');
 const selectedType = form.querySelector('#type');
 const priseField = form.querySelector('#price');
@@ -15,16 +24,6 @@ const selectedGuest = form.querySelector('#capacity');
 const submitButton = form.querySelector('.ad-form__submit');
 const resetButton = form.querySelector('.ad-form__reset');
 
-
-const MIN_PRISE_LIST =
-{
-  bungalow : [0,'бунгало'],
-  flat : [1000,'квартиру'],
-  hotel : [3000,'отель'],
-  house : [5000,'дом'],
-  palace : [10000,'дворец']
-};
-
 const pristine = new Pristine(form,{
   classTo: 'ad-form__element',
   errorTextParent: 'ad-form__element',
@@ -34,19 +33,19 @@ const pristine = new Pristine(form,{
 true);
 
 const validatePrise=(valuePrise) => {
-  const [minPrise] = MIN_PRISE_LIST[selectedType.value];
+  const {minPrise} = MIN_PRISE_LIST[selectedType.value];
   return minPrise <= valuePrise;
 };
 
 const getPriseErrorMessage=() => {
-  const [minPrise, ruTypeName] = MIN_PRISE_LIST[selectedType.value];
+  const {minPrise, ruTypeName} = MIN_PRISE_LIST[selectedType.value];
   return `Минимальная цена за ${ruTypeName}: ${minPrise}р.`;
 };
 
 pristine.addValidator(priseField, validatePrise, getPriseErrorMessage);
 
 function typeBuildingChange(evt){
-  const [minPrise] = MIN_PRISE_LIST[evt.target.value];
+  const {minPrise} = MIN_PRISE_LIST[evt.target.value];
   priseField.placeholder = `от ${minPrise}`;
   priseField.min = minPrise;
 
@@ -68,7 +67,7 @@ const validateRoomsGuests = ()=>{
   }
 };
 
-pristine.addValidator(selectedRoom, validateRoomsGuests, 'кол-во комнат не сответствует кол-ву гостей');
+pristine.addValidator(selectedRoom, validateRoomsGuests, 'кол-во комнат не соответствует кол-ву гостей');
 selectedGuest.addEventListener('change',()=>pristine.validate(selectedRoom));
 
 noUiSlider.create(priseSlider, {
@@ -98,6 +97,7 @@ timeoutField.addEventListener('change', ()=>{timeinField.value = timeoutField.va
 
 const resetForm = ()=>{
   form.reset();
+  pristine.reset();
   resetFiltersForm();
   resetMapMainMarker();
   resetPhotoPreview();

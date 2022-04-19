@@ -50,7 +50,7 @@ const filterByFeatures = (advert) => {
 
 const getFilteringAdverts = ()=>{
   const adverts = getAdvertsCache();
-  const filtredAdverts = [];
+  const filteredAdverts = [];
   for(let i=0; i < adverts.length; i++)
   {
     const currentAdvert = adverts[i];
@@ -60,14 +60,14 @@ const getFilteringAdverts = ()=>{
       && filterByRooms(currentAdvert)
       && filterByGuests(currentAdvert)
       && filterByFeatures(currentAdvert)){
-      filtredAdverts.push(currentAdvert);
+      filteredAdverts.push(currentAdvert);
     }
 
-    if(filtredAdverts.length === ADVERTS_ON_MAP){
+    if(filteredAdverts.length === ADVERTS_ON_MAP){
       break;
     }
   }
-  return filtredAdverts;
+  return filteredAdverts;
 };
 
 

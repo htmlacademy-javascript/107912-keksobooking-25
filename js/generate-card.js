@@ -40,11 +40,11 @@ const generateCard = (advert)=>{
     capacity.remove();
   }
 
-  const tyme = templateCard.querySelector('.popup__text--time');
+  const time = templateCard.querySelector('.popup__text--time');
   if(advert.offer.checkin && advert.offer.checkout){
-    tyme.textContent = `Заезд после ${advert.offer.checkin}, выезд до ${advert.offer.checkout}`;
+    time.textContent = `Заезд после ${advert.offer.checkin}, выезд до ${advert.offer.checkout}`;
   }else{
-    tyme.remove();
+    time.remove();
   }
 
   const popupFeatures = templateCard.querySelector('.popup__features');
